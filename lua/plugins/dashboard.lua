@@ -17,7 +17,7 @@ return {
         ⣿⡇⠄⠙⢌⢷⣆⡀⡾⡣⠃⠄⠄⠄⠄⠄⣼⡟    ⢿⣿⣿ ,
     ]]
 
-    vim.notify("------------------- HELLO ~ baizeyv -------------------", vim.log.levels.INFO, {
+    vim.notify("# ------------------- HELLO ~ baizeyv -------------------", vim.log.levels.INFO, {
       title = "Anima Power",
     })
 
