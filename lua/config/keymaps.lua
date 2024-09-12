@@ -58,8 +58,8 @@ local keybinds = {
   copy_line = { "Y", { "Y", { "n", "x" }, {} } },
   undo = { "u", { "l", "n", {} } },
   undo_line = { "U", { "L", "n", {} } },
-  --insert = { "i", { "k", { "n", "x", "o" }, { remap = false } } },
-  insert = { "i", { "k", { "n", "x", "o" }, {} } }, -- 使用了mini.ai,所以不需要重新映射x,o两个模式，这个插件会帮我重新映射,如果没有用这个插件则需要重新映射, 但是不映射的话类似yiw (my: ykw) 会导致k向上移动一行,所以还是映射上
+  insert = { "i", { "k", { "n", "x" }, { remap = false } } },
+  -- insert = { "i", { "k", { "n", "x", "o" }, {} } }, -- 使用了mini.ai,所以不需要重新映射x,o两个模式，这个插件会帮我重新映射,如果没有用这个插件则需要重新映射, 但是不映射的话类似yiw (my: ykw) 会导致k向上移动一行,所以还是映射上
   insert_bol = { "I", { "K", { "n", "x", "o" }, {} } },
   insert_next_line = { "o", { "o", "n", {} } },
   insert_prev_line = { "O", { "O", "n", {} } },

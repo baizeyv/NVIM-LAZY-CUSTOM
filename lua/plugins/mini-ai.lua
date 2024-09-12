@@ -38,6 +38,8 @@ return {
         g = LazyVim.mini.ai_buffer, -- buffer
         U = ai.gen_spec.function_call(), -- u for "Usage"
         u = ai.gen_spec.function_call({ name_pattern = "[%w_]" }), -- without dot in function name
+        w = { "()%f[%w_]%w+_?%w*()" },
+        W = { "()%f[%w_]%w+_?%w*()" },
       },
     }
   end,

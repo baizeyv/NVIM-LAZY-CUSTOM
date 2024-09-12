@@ -216,4 +216,96 @@ return {
     }
     return vim.tbl_deep_extend("force", opts, custom_opts)
   end,
+  config = function(_, opts)
+    for _, source in ipairs(opts.sources) do
+      source.group_index = source.group_index or 1
+    end
+    local cmp = require("cmp")
+    local ok, cmp_autopairs = pcall(require, "nvim-autopairs.completion.cmp")
+    if ok then
+      cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+    end
+    cmp.setup(opts)
+
+    local cmdline_mapping = {
+      ["<C-e>"] = {
+        c = function(fallback)
+          if cmp.visible() then
+            cmp.select_next_item()
+          else
+            fallback()
+          end
+        end,
+      },
+      ["<C-u>"] = {
+        c = function(fallback)
+          if cmp.visible() then
+            cmp.select_prev_item()
+          else
+            fallback()
+          end
+        end,
+      },
+      ["<C-CR>"] = {
+        c = function(fallback)
+          if cmp.visible() then
+            cmp.confirm({ select = true })
+          else
+            fallback()
+          end
+        end,
+      },
+      ["<C-i>"] = {
+        c = function(fallback)
+          cmp.complete()
+        end,
+      },
+      ["<C-n>"] = {
+        c = function(fallback)
+          if cmp.visible() then
+            cmp.abort()
+          else
+            fallback()
+          end
+        end,
+      },
+    }
+
+    -- `/` cmdline setup.
+    cmp.setup.cmdline({ "/", "?" }, {
+      mapping = cmp.mapping.preset.cmdline(cmdline_mapping),
+      view = {
+        entries = {
+          name = "custom",
+          separator = " | ",
+        },
+      },
+      sources = {
+        { name = "buffer" },
+      },
+    })
+    -- `:` cmdline setup.
+    cmp.setup.cmdline(":", {
+      mapping = cmp.mapping.preset.cmdline(cmdline_mapping),
+      view = {
+        entries = {
+          name = "custom",
+          separator = " | ",
+        },
+      },
+      sources = cmp.config.sources({
+        { name = "path" },
+      }, {
+        {
+          name = "cmdline",
+          option = {
+            ignore_cmds = { "Man", "!" },
+          },
+        },
+      }),
+      matching = {
+        disallow_symbol_noprefix_matching = false,
+      },
+    })
+  end,
 }
